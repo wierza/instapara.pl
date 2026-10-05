@@ -1,0 +1,177 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #f4efeb;
+  --color-navy: #182c3f;
+  --color-slate: #506379;
+  --color-sky: #9fc6da;
+  --color-warm: #d8d6d4;
+  --color-muted: #b9bfce;
+  --color-mid: #445060;
+  --color-gray: #67717d;
+
+  --font-display: var(--font-display), Georgia, serif;
+  --font-heading: var(--font-heading), Georgia, serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  * {
+    cursor: none !important;
+  }
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #f4efeb;
+  color: #182c3f;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+::selection {
+  background-color: #9fc6da;
+  color: #182c3f;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.font-heading {
+  font-family: var(--font-heading), Georgia, serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Nav pill — CSS-driven, no React dependency */
+#nav-pill {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 0;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+html[data-scrolled] #nav-pill {
+  max-width: 64rem;
+  margin: 0.75rem 1rem 0;
+  padding: 0 1.5rem;
+  background: #182c3f;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+html[data-scrolled] #nav-pill .nav-inner {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+html[data-scrolled] #nav-pill nav {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  #nav-pill {
+    padding: 1.5rem 3rem 0;
+  }
+  html[data-scrolled] #nav-pill {
+    margin: 0.75rem auto 0;
+    padding: 0 2rem;
+  }
+}
+
+/* Article prose styles */
+.prose-instapara h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 300;
+  line-height: 1.35;
+  color: #182c3f;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+.prose-instapara h3 {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #182c3f;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+.prose-instapara p {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #506379;
+  margin-bottom: 1.25rem;
+}
+.prose-instapara strong {
+  color: #182c3f;
+  font-weight: 600;
+}
+.prose-instapara em {
+  color: #9fc6da;
+  font-style: italic;
+}
+.prose-instapara ul {
+  margin: 1.25rem 0;
+  padding-left: 0;
+  list-style: none;
+}
+.prose-instapara ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #506379;
+}
+.prose-instapara ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #9fc6da;
+}
+.prose-instapara blockquote {
+  border-left: 2px solid #9fc6da;
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-family: var(--font-heading), Georgia, serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #182c3f;
+  line-height: 1.6;
+}
+.prose-instapara hr {
+  border: none;
+  border-top: 1px solid #d8d6d4;
+  margin: 2.5rem 0;
+}
+.prose-instapara a {
+  color: #182c3f;
+  text-decoration: underline;
+  text-decoration-color: #9fc6da;
+  text-underline-offset: 3px;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+.prose-instapara a:hover {
+  color: #9fc6da;
+  text-decoration-color: #9fc6da;
+}

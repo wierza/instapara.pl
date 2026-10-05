@@ -1,0 +1,45 @@
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+
+# Cache static assets 1 year
+<FilesMatch "\.(js|css|woff2|woff|ttf|png|jpg|jpeg|webp|svg|ico)$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# No cache for HTML
+<FilesMatch "\.html$">
+  Header set Cache-Control "no-cache, must-revalidate"
+</FilesMatch>
+
+# Gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
+</IfModule>
+
+# SPA routing — redirect all non-file requests to index.html
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Stare adresy z poprzedniej strony, które Google wciąż pokazuje
+  RewriteRule ^en/?$ / [R=301,L]
+  RewriteRule ^(regulamin|terms-and-conditions)/?$ https://sklep.instapara.pl/regulamin/ [R=301,L]
+  RewriteRule ^(calendar|kalendarz)/?$ /#booking [R=301,NE,L]
+  # Produkty i wpisy portfolio ze starego sklepu już nie istnieją — 410, żeby Google szybko je usunął
+  RewriteRule ^(produkt|portfolio)/ - [G,L]
+
+  # Strona i folder o tej samej nazwie (np. blog.html + blog/): pokaż stronę, nie folder.
+  # /blog/ → blog.html (bez przekierowania, żeby nie powstała pętla ze starym przekierowaniem w CDN)
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(.+)/$ /$1.html [L,QSA]
+  # /blog → blog.html (zanim serwer potraktuje adres jak folder)
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^(.+)$ /$1.html [L,QSA]
+
+  # Brak pliku .html = zwykła strona 404 (wcześniejsza reguła „wszystko → .html” zapętlała się i dawała błąd 500)
+</IfModule>
+
+ErrorDocument 404 /404.html
